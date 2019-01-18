@@ -1,0 +1,9 @@
+export const LANDING_PAGE = '/';
+export const POSTS_PAGE = '/post';
+export const LOGIN_PAGE = '/login';
+export const REGISTER_PAGE = '/register';
+export const PROFILE_PAGE = '/profileid=:user_id';
+export const CREATEPROFILE_PAGE = '/create-profile';  
+export const PROFILES_PAGE = '/profiles';  
+export const POST_DETAIL_PAGE = '/post/id=:post_id';  
+export const NOTFOUND_PAGE = '';

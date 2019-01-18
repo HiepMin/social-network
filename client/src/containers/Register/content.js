@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // components
-import RenderField from './../../components/RenderField';
+import InputField from './../../components/InputField';
 import Layout from './../../components/Layout';
 import Form from './../../components/Form';
 import RenderAlert from './../../components/Alert';
 import Button from './../../components/Button';
 
-// import { Field } from 'redux-form';
+import { Field } from 'redux-form';
 import { path } from './../../config';
-class LoginContent extends React.PureComponent {
-  state = {
+class RegisterContent extends Component {
+  state={
     error: {
       msg: ''
     }
   }
-  componentDidMount() {
+  componentDidMount(){
     if (this.props.auth.isAuthenticated) {
       this.props.history.push(path.POSTS_PAGE);
     }
-  }
-  componentWillUnmount() {
-    this.props.ActSetErrors(null);
   }
   static getDerivedStateFromProps(newProps, oldState) {
     if (newProps.auth.isAuthenticated) {
@@ -32,21 +29,24 @@ class LoginContent extends React.PureComponent {
     }
     return null;
   }
+  componentWillUnmount(){
+    this.props.ActSetErrors();
+  }
   render(){
-    const { msg } = this.state.error;
     const { handleSubmit } = this.props;
-    return(
+    const { msg } = this.state.error;
+    return (
       <Layout xs={10} sm={8} md={7} lg={5} cnCol="mx-auto" style={{ marginTop: "5rem" }}>
         <Form 
-          onSubmit={handleSubmit(user => this.props.LoginUser(user))} 
-          titleForm="Login"
+          onSubmit={handleSubmit(user => this.props.RegisterUser(user, this.props.history, path.LOGIN_PAGE))} 
+          titleForm="Register"
+          note="* = required"
           info={
             <React.Fragment>
-              Don't have an account? Signup {'   '}
-              <Link to={path.REGISTER_PAGE}>here</Link>
+              Already have an account? Login {'   '}
+              <Link to={path.LOGIN_PAGE}>here</Link>
             </React.Fragment>
-          }
-        >
+          }>
           { 
             msg ? 
             <RenderAlert 
@@ -61,16 +61,32 @@ class LoginContent extends React.PureComponent {
               error={msg} /> 
             : '' 
           }
-          <RenderField 
+          <Field 
+            component={InputField}
             name="email"
             id="email"
-            placeholder="Email..."
+            placeholder="Email...*"
+            // processing={requesting && doWhat && doWhat === 'register user'}
           />
-          <RenderField 
+          <Field 
+            name="username"
+            component={InputField}
+            id="username"
+            placeholder="Username...*"
+          />
+          <Field 
             type="password"
             name="password"
+            component={InputField}
             id="password"
-            placeholder="Password..."
+            placeholder="Password...*"
+          />
+          <Field 
+            type="password"
+            component={InputField}
+            name="passConfirm"
+            id="passConfirm"
+            placeholder="Confirm password...*"
           />
           <Button type="submit" default iconButton>
             <i className="fas fa-arrow-right " />
@@ -81,4 +97,4 @@ class LoginContent extends React.PureComponent {
   }
 }
 
-export default LoginContent;
+export default RegisterContent;

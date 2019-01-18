@@ -4,11 +4,15 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './configureStore';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import GlobalStyles from './globalStyle';
 
 const NODE_DOM = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyles />
     <App />
   </Provider>,
   NODE_DOM

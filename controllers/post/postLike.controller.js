@@ -1,10 +1,10 @@
-const { Post, Profile } = require('./../../models/index.model');
+const { Post, User } = require('./../../models/index.model');
 
 module.exports = (req, res) => {
   const { post_id } = req.params;
   const { id } = req.user;
-  Profile
-    .findOne({ user: id })
+  User
+    .findById(id)
     .then(() => {
       Post
       .findById({ _id: post_id })

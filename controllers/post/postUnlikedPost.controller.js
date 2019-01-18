@@ -1,9 +1,9 @@
-const { Post, Profile } = require('./../../models/index.model');
+const { Post, User } = require('./../../models/index.model');
 module.exports = (req, res) => {
   const { post_id } = req.params;
   const { id } = req.user;
-  Profile
-    .findOne({ user: id })
+  User
+    .findById(id)
     .then(() => {
       Post
         .findById(post_id)
@@ -22,5 +22,4 @@ module.exports = (req, res) => {
         })
         .catch(() => res.status(404).json({ msg: 'can not found this post', success: false }))
     })
-    .catch(err => res.status(404).json(err));
 }

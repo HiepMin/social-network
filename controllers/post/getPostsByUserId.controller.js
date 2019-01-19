@@ -7,6 +7,7 @@ module.exports = (req, res) => {
     .then(() => {
       Post
         .find({ user: user_id })
+        .sort({ createDate: -1 })
         .then(posts => {
           if (!posts) return res.status(404).json({ msg: 'This user has no post', success: false });
           res.json(posts);

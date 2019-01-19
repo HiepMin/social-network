@@ -10,9 +10,9 @@ import Navbar from './../../components/Navbar';
 import LoginPage from './../Login';
 import RegisterPage from './../Register';
 import PostPage from './../Post';
-// import PostDetailPage from './../PostDetail';
+import PostDetailPage from './../PostDetail';
 // import LandingPage from './../Landing';
-// import ProfilePage from './../Profile';
+import UserDetailPage from './../UserDetail';
 // module: decode token
 import jwt_decode from 'jwt-decode';
 // store
@@ -49,8 +49,8 @@ class App extends Component {
                 <LoginPage exact path={path.LOGIN_PAGE} />
                 <RegisterPage exact path={path.REGISTER_PAGE} />
                 <PostPage exact path={path.POSTS_PAGE} />
-                {/* <PostDetailPage exact path={path.POST_DETAIL_PAGE} /> */}
-                {/* <ProfilePage exact path={path.PROFILE_PAGE} /> */}
+                <PostDetailPage exact path={path.POST_DETAIL_PAGE} />
+                <UserDetailPage exact path={path.PROFILE_PAGE} />
                 <Redirect to={path.POSTS_PAGE} />
               </Switch>
             </Layout>

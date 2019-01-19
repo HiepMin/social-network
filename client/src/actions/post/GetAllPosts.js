@@ -7,7 +7,7 @@ export default () => dispatch => {
     type: DOING,
     payload: {
       doWhat: 'getting posts',
-      id: null
+      post_id: null
     }
   });
   Get_AllPosts()

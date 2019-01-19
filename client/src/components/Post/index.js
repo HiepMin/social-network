@@ -255,7 +255,7 @@ class PostComponent extends React.Component {
           
           <div className="main">
             <div className="text">
-              <Link to={`/profileid=${user._id}`}>
+              <Link to={`/profileid=${cmt.user}`}>
                 <strong>{cmt.username}</strong>
               </Link>
               <p>{cmt.text}</p>
@@ -265,7 +265,7 @@ class PostComponent extends React.Component {
             </div>
             {
               // chủ post || chủ comment
-              (currentUser.id === post_id || currentUser.id === cmt.user) && (
+              (currentUser.id === user._id || currentUser.id === cmt.user) && (
                 <PostAction>
                   <Button 
                     type="button"

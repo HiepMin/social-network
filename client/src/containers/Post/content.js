@@ -11,18 +11,19 @@ class PostContent extends React.PureComponent {
     this.props.ActPureSetPosts([]);
   }
   render(){
+    const { currentUser } = this.props.auth;
     const { loading, doWhat } = this.props.process;
     const { posts } = this.props.post;
     if ((loading && doWhat === 'getting posts') || !posts) return <LoadingIndicator />
     return (
         <Layout xs={12} sm={10} md={8} cnCol="mx-auto" style={{ marginTop: "5rem" }}>
-          {this.renderPosts(posts)}
+          {this.renderPosts(posts, currentUser, this.props.process)}
         </Layout>
     )
   }
-  renderPosts = posts => {
-    const { currentUser } = this.props.auth;
-    const { loading, doWhat, id: post_id } = this.props.process;
+  renderPosts = (posts, currentUser, {loading, doWhat, post_id}) => {
+    // const { currentUser } = this.props.auth;
+    // const { loading, doWhat, post_id } = this.props.process;
     return posts.map(post => {
       return (
           <Post
@@ -36,7 +37,7 @@ class PostContent extends React.PureComponent {
 
             processing={loading}
             processDo={doWhat}
-            processIn={post._id}
+            processIn={post_id}
 
             requesting={loading}
 
@@ -45,19 +46,17 @@ class PostContent extends React.PureComponent {
             onDislikePost={() => this.props.DislikePost(post._id)}
             onUndislikePost={() => this.props.UndislikePost(post._id, currentUser.id)}
             onCommentPost={(e, cmt) => this.onCommentPost(e, post._id, cmt)}
-            // onClickDelComment={(post_id, cmt_id) => this.props.Act_RemoveComment(post_id, cmt_id)}
-            // onClickDelPost={() => this.props.Act_RemovePost(post._id)}
+            onClickDelComment={(post_id, cmt_id) => this.props.DeleteComment(post_id, cmt_id)}
+            onClickDelPost={() => this.props.DeletePost(post._id)}
 
-            isCurrentUserPost={post_id => this.checkCurrentUserPost(post_id)}
+            isCurrentUserPost={post_id => this.checkCurrentUserPost(posts, currentUser, post_id)}
             liked={() => this.checkLikeAndDislike(post._id, 'likes')}
             disliked={() => this.checkLikeAndDislike(post._id, 'dislikes')}
           />
       )
     })
   }
-  checkCurrentUserPost = post_id => {
-    const { posts } = this.props.post;
-    const { currentUser } = this.props.auth;
+  checkCurrentUserPost = (posts, currentUser, post_id)=> {
     const eachPost = 
       posts
       .filter(post => post._id === post_id)
@@ -79,12 +78,10 @@ class PostContent extends React.PureComponent {
     const objComment = {
       text: cmt,
       username: currentUser.username,
-      nickname: currentUser.nickname,
       avatar: currentUser.avatar,
     }
     this.props.CommentPost(post_id, objComment);
     e.preventDefault();
-    console.log(cmt);
   }
 }
 

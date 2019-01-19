@@ -11,7 +11,9 @@ import {
   UnlikePost,
   UndislikePost,
   DislikePost,
-  CommentPost
+  CommentPost,
+  DeletePost,
+  DeleteComment
 } from './../../actions';
 
 const mapStateToProps = state => ({
@@ -28,7 +30,9 @@ const withConnect = connect(
     UnlikePost,
     UndislikePost,
     DislikePost,
-    CommentPost
+    CommentPost,
+    DeletePost,
+    DeleteComment
   }
 );
 

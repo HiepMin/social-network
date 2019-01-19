@@ -2,7 +2,8 @@ import { DOING, DONE } from './../actions/type';
 const initialState = {
   loading: null,
   doWhat: null,
-  id: null
+  post_id: null,
+  user_id: null
 };
 
 export default (state=initialState, action) => {
@@ -18,7 +19,8 @@ export default (state=initialState, action) => {
         ...state,
         loading: false,
         doWhat: null,
-        id: null
+        post_id: null,
+        user_id: null
       }
     default:
       return {...state}
